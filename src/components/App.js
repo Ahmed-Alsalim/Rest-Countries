@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CountriesTable from "./CountriesTable";
+import CapitalFilter from "./CapitalFilter";
+import Search from "./Search";
 
 function App() {
   const [countriesData, setCountriesData] = useState([]);
@@ -23,19 +25,8 @@ function App() {
     setCountries(countriesData);
   }, [countriesData]);
 
-  const handleFilterChange = (data) => {
-    if (data == "") {
-      setCountries(countriesData);
-    } else {
-      setCountries(
-        countriesData.filter(
-          (country) =>
-            // check if there is capital then check if it includes the search term
-            country.capital &&
-            country.capital.toLowerCase().includes(data.toLowerCase())
-        )
-      );
-    }
+  const capitalFilter = (data) => {
+    setCountries(data);
   };
 
   return (
@@ -43,20 +34,18 @@ function App() {
       <div className="container">
         <table className="table">
           <thead className="table-primary">
+            <CapitalFilter
+              countriesData={countriesData}
+              capitalFilter={capitalFilter}
+            />
+            <Search
+              countriesData={countriesData}
+              searchResults={capitalFilter}
+            />
+
             <tr>
               <th className="col-5">Name</th>
-              <th className="col-3">
-                Capital
-                <br />
-                <input
-                  className="input-group"
-                  type="text"
-                  placeholder="filter"
-                  onChange={(e) => {
-                    handleFilterChange(e.target.value);
-                  }}
-                />
-              </th>
+              <th className="col-3">Capital</th>
               <th className="col-2">Region</th>
               <th className="col-2">flag</th>
             </tr>
