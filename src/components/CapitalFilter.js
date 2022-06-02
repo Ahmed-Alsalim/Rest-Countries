@@ -10,14 +10,19 @@ const CapitalFilter = ({ countriesData, capitalFilter }) => {
   };
 
   return (
-    <input
-      className="input-group"
-      type="text"
-      placeholder="filter by capital"
-      onChange={(e) => {
-        handleFilterChange(e.target.value);
-      }}
-    />
+    <div className="form-group align-items-center" style={{ display: "flex" }}>
+      <label htmlFor="CapitalInput">Capital</label>
+      <input
+        className="form-control "
+        type="text"
+        id="CapitalInput"
+        placeholder="filter by capital"
+        style={{ width: "100%", marginLeft: "20px" }}
+        onChange={(e) => {
+          handleFilterChange(e.target.value);
+        }}
+      />
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
 import CountriesTable from "./CountriesTable";
 import CapitalFilter from "./CapitalFilter";
 import Search from "./Search";
@@ -30,32 +29,31 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="container">
-        <table className="table">
-          <thead className="table-primary">
-            <CapitalFilter
-              countriesData={countriesData}
-              capitalFilter={capitalFilter}
-            />
-            <Search
-              countriesData={countriesData}
-              searchResults={capitalFilter}
-            />
-
-            <tr>
-              <th className="col-5">Name</th>
-              <th className="col-3">Capital</th>
-              <th className="col-2">Region</th>
-              <th className="col-2">flag</th>
-            </tr>
-          </thead>
-          <tbody>
-            <CountriesTable countries={countries} />
-          </tbody>
-        </table>
+    <>
+      <div className="App">
+        <div className="container">
+          <table className="table">
+            <thead className="table-primary">
+              <tr className="align-middle">
+                <th className="col-5">Name</th>
+                <th className="col-3">
+                  <CapitalFilter
+                    countriesData={countriesData}
+                    capitalFilter={capitalFilter}
+                  />
+                </th>
+                <th className="col-2">Region</th>
+                <th className="col-2">flag</th>
+              </tr>
+            </thead>
+            <tbody>
+              <CountriesTable countries={countries} />
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+      <Search countriesData={countriesData} searchResults={capitalFilter} />
+    </>
   );
 }
 

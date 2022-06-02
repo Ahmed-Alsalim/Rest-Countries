@@ -1,26 +1,19 @@
+import { useEffect } from "react";
+import { useSearch } from "../contexts/SearchContext";
+
 const Search = ({ countriesData, searchResults }) => {
-  const handleFilterChange = (filter) => {
+  const { searchTerm } = useSearch();
+
+  useEffect(() => {
     const filteredCountries = countriesData.filter(
       (country) =>
         // check if there is capital then check if it includes the search term
         country.capital &&
-        (country.capital.toLowerCase().includes(filter.toLowerCase()) ||
-          country.name.toLowerCase().includes(filter.toLowerCase()) ||
-          country.region.toLowerCase().includes(filter.toLowerCase()))
+        (country.capital.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          country.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          country.region.toLowerCase().includes(searchTerm.toLowerCase()))
     );
     searchResults(filteredCountries);
-  };
-
-  return (
-    <input
-      className="input-group"
-      type="text"
-      placeholder="search all"
-      onChange={(e) => {
-        handleFilterChange(e.target.value);
-      }}
-    />
-  );
+  }, [searchTerm]);
 };
-
 export default Search;
