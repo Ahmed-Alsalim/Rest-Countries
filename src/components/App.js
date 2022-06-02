@@ -6,7 +6,8 @@ import Search from "./Search";
 
 function App() {
   const [countriesData, setCountriesData] = useState([]);
-  const [countries, setCountries] = useState([]);
+  const [searchFilter, setSearchFilter] = useState([]);
+  const [capitalFilter, setCapitalFilter] = useState([]);
 
   async function fetchData() {
     try {
@@ -21,25 +22,33 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setCountries(countriesData);
+    setSearchFilter(countriesData);
   }, [countriesData]);
 
-  const capitalFilter = (data) => {
-    setCountries(data);
+  useEffect(() => {
+    setCapitalFilter(searchFilter);
+  }, [searchFilter]);
+
+  const searchResults = (data) => {
+    setSearchFilter(data);
+  };
+  const capitalFilterResults = (data) => {
+    setCapitalFilter(data);
   };
 
   return (
     <>
+      <Search countriesData={countriesData} searchResults={searchResults} />
       <div className="App">
         <div className="container">
           <table className="table">
-            <thead className="table-primary">
+            <thead>
               <tr className="align-middle">
                 <th className="col-5">Name</th>
                 <th className="col-3">
                   <CapitalFilter
-                    countriesData={countriesData}
-                    capitalFilter={capitalFilter}
+                    countriesData={searchFilter}
+                    capitalFilter={capitalFilterResults}
                   />
                 </th>
                 <th className="col-2">Region</th>
@@ -47,12 +56,11 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              <CountriesTable countries={countries} />
+              <CountriesTable countries={capitalFilter} />
             </tbody>
           </table>
         </div>
       </div>
-      <Search countriesData={countriesData} searchResults={capitalFilter} />
     </>
   );
 }
