@@ -1,10 +1,9 @@
 const CapitalFilter = ({ countriesData, capitalFilter }) => {
-  const handleFilterChange = (filter) => {
+  const handleFilterChange = (filterTerm) => {
     const filteredCountries = countriesData.filter(
       (country) =>
-        // check if there is capital then check if it includes the search term
         country.capital &&
-        country.capital.toLowerCase().includes(filter.toLowerCase())
+        country.capital.turkishToLower().includes(filterTerm.turkishToLower())
     );
     capitalFilter(filteredCountries);
   };
@@ -24,6 +23,16 @@ const CapitalFilter = ({ countriesData, capitalFilter }) => {
       />
     </div>
   );
+};
+
+// lowering turkish letter "İ" to "i"
+String.prototype.turkishToLower = function () {
+  let string = this;
+  const letters = { İ: "i" };
+  string = string.replace(/(([İ]))/g, function (letter) {
+    return letters[letter];
+  });
+  return string.toLowerCase();
 };
 
 export default CapitalFilter;
