@@ -1,13 +1,16 @@
 thead {
   position: sticky;
-  top: 58px;
+  top: 4rem;
   background-color: #a593eb;
 }
 nav {
   background-color: #2b184d;
   margin-bottom: 25px;
+  height: 4rem;
 }
-/* footer stick at bottom */
+body {
+  margin-bottom: 50px;
+}
 footer {
   position: fixed;
   bottom: 0;
@@ -16,4 +19,9 @@ footer {
   color: #fff;
   text-align: center;
   padding: 10px;
+  margin-top: 10px;
+}
+.flags {
+  border: black solid 1px;
+  max-width: 100px;
 }

@@ -5,7 +5,6 @@ const Navbar = () => {
 
   const handleSearchType = (d) => {
     setSearchTerm(d);
-    console.log(searchTerm);
   };
 
   return (

@@ -5,14 +5,22 @@ const Search = ({ countriesData, searchResults }) => {
   const { searchTerm } = useSearch();
 
   useEffect(() => {
-    const filteredCountries = countriesData.filter((country) =>
-      Object.keys(country).some((key) =>
-        country[key]
-          .toString()
-          .turkishToLower()
-          .includes(searchTerm.turkishToLower())
-      )
-    );
+    const filteredCountries = countriesData.filter((country) => {
+      function filterData(data) {
+        return Object.keys(data).some((key) => {
+          if (typeof data[key] !== "object") {
+            return data[key]
+              .toString()
+              .turkishToLower()
+              .includes(searchTerm.turkishToLower());
+          } else {
+            return filterData(data[key]);
+          }
+        });
+      }
+      return filterData(country);
+    });
+    console.log(filteredCountries);
     searchResults(filteredCountries);
   }, [searchTerm]);
 };
