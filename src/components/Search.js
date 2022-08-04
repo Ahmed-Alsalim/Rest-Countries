@@ -32,7 +32,7 @@ String.prototype.turkishToLower = function () {
   string = string.replace(/(([İ]))/g, function (letter) {
     return letters[letter];
   });
-  return string.toLowerCase();
+  return string.toLocaleLowerCase();
 };
 
 export default Search;
